@@ -65,7 +65,7 @@ namespace Notes.ConsoleUI
             Console.WriteLine("По Id");
             var notes1 = noteController.GetNoteById(1);
             Console.WriteLine($"{notes1.Content} - {notes1.Title}");
-
+            //test
 
         }
     }
