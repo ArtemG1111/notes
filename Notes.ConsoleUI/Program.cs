@@ -63,8 +63,8 @@ namespace Notes.ConsoleUI
                 Console.WriteLine($"{n.Content} - {n.Title}");
             }
             Console.WriteLine("По Id");
-            var notes1 = noteController.GetNoteById(1);
-            Console.WriteLine($"{notes1.Content} - {notes1.Title}");
+            var note = noteController.GetNoteById(1);
+            Console.WriteLine($"{note.Content} - {note.Title}");
             //test
 
         }
