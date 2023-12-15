@@ -26,7 +26,7 @@ namespace Notes.ConsoleUI
             var noteRepository = new NoteRepository(dbContext);
             var noteService = new NoteService(noteRepository);
             var noteController = new NoteController(noteService);
-            using var db = new NotesContext(options);
+            
 
             dbContext.Database.EnsureCreated(); 
             Note note = new Note();
@@ -42,9 +42,9 @@ namespace Notes.ConsoleUI
                     case 1:                      
                         Console.WriteLine("# # # # # Notes App # # # # # ");
                         var notes = noteController.GetAllNote();
+                        Console.WriteLine("Your Notes");
                         foreach (var n1 in notes)
                         {
-                            Console.WriteLine("Your Notes");
                             Console.WriteLine("---------------");
                             Console.WriteLine($"Id:{n1.Id}");
                             Console.WriteLine($"Title:{n1.Title}");
@@ -59,9 +59,9 @@ namespace Notes.ConsoleUI
                         Console.WriteLine("Creating new note");
                         note = new Note();
                         Console.Write("Title: ");
-                        Console.WriteLine("", note.Title = Console.ReadLine());
+                        note.Title = Console.ReadLine();
                         Console.Write("Content: ");
-                        Console.WriteLine("", note.Content = Console.ReadLine());
+                        note.Content = Console.ReadLine();
                         noteController.AddNote(note);
                         Console.WriteLine("Press Enter to back in menu");
                         Console.ReadLine();
@@ -76,9 +76,9 @@ namespace Notes.ConsoleUI
                         {
                             Console.WriteLine("Note found!");
                             Console.Write("New title: ");
-                            Console.WriteLine("", note.Title = Console.ReadLine());
+                            note.Title = Console.ReadLine();
                             Console.WriteLine("Change content: ");
-                            Console.WriteLine("", note.Content = Console.ReadLine());
+                            note.Content = Console.ReadLine();
                             noteController.UpdateNote(note);
                         }
                         else
