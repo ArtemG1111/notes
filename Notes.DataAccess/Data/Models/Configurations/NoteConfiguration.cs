@@ -9,7 +9,7 @@ namespace Notes.DataAccess.Data.Models.Configurations
     {
         public void Configure(EntityTypeBuilder<Note> builder)
         {
-
+            builder.HasKey(x => x.Id);
         }
     }
 }
