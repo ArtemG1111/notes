@@ -7,6 +7,7 @@ namespace Notes.DataAccess.Data
     public class NotesContext : DbContext
     {
         public DbSet<Note>? Notes { get; set; }
+        public DbSet<User>? Users { get; set; }
         public NotesContext(DbContextOptions<NotesContext> options)
             : base(options)
         {

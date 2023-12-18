@@ -9,8 +9,7 @@ namespace Notes.DataAccess.Interfaces
         void AddNote(Note note);
         void UpdateNote(Note note);
         void DeleteNote(Note note);
-        List<Note> GetAllNote();
+        List<Note> GetAllNote(int userId);
         Note GetNoteById(int id);
-    }
-    
+    }   
 }
