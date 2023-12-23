@@ -1,11 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;  
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Notes.BusinessLogic.Interfaces;
 using Notes.BusinessLogic.Services;
 using Notes.BusinessLogic.Servises;
 using Notes.ConsoleUI.Controllers;
 using Notes.DataAccess.Data;
 using Notes.DataAccess.Data.Models;
+using Notes.DataAccess.Interfaces;
 using Notes.DataAccess.Repositories;
+
 
 namespace Notes.ConsoleUI
 {
@@ -13,26 +17,10 @@ namespace Notes.ConsoleUI
     {
         static void Main(string[] args)
         {
-            var builder = new ConfigurationBuilder();
-            builder.SetBasePath(Directory.GetCurrentDirectory());
-            builder.AddJsonFile("appsettings.json");
-            var config = builder.Build();
-            var connectiongString = config.GetConnectionString("DefaultConnection");
-
-            var optionsBuilder = new DbContextOptionsBuilder<NotesContext>();
-            var options = optionsBuilder.UseSqlite(connectiongString).Options;
-
-            using var dbContext = new NotesContext(options);
-            var noteRepository = new NoteRepository(dbContext);
-            var noteService = new NoteService(noteRepository);
-            var noteController = new NoteController(noteService);
-
-            var userRepository = new UserRepository(dbContext);
-            var userService = new UserService(userRepository);
-            var userController = new UserController(userService);
-
-            
-            dbContext.Database.EnsureCreated(); 
+            var config = GetConfiguration();
+            var serviceProvider = GetServiceProvider(config);
+            var noteController = serviceProvider.GetService<NoteController>();
+            var userController = serviceProvider.GetService<UserController>();        
             Note note = new Note();
             User user = new User();
             int menu = 0;
@@ -146,6 +134,28 @@ namespace Notes.ConsoleUI
             while (menu != 0);
 
 
+        }
+        static IServiceProvider GetServiceProvider(IConfiguration config)
+        {
+            var connectiongString = config.GetConnectionString("DefaultConnection");
+            IServiceCollection services = new ServiceCollection();
+            services.AddTransient<INoteRepository, NoteRepository>()
+                .AddTransient<INoteService, NoteService>()
+                .AddTransient<IUserRepository, UserRepository>()
+                .AddTransient<IUserService, UserService>()
+                .AddTransient<NoteController>()
+                .AddTransient<UserController>()
+                .AddDbContext<NotesContext>(options => options.UseSqlite(connectiongString));
+            services.AddScoped<NotesContext>();           
+            return services.BuildServiceProvider();
+            
+        }
+        static IConfiguration GetConfiguration()
+        {
+            var builder = new ConfigurationBuilder();
+            builder.SetBasePath(Directory.GetCurrentDirectory());
+            builder.AddJsonFile("appsettings.json");
+            return builder.Build();
         }
     }
 }
