@@ -3,23 +3,28 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notes.ConsoleUI", "Notes.ConsoleUI\Notes.ConsoleUI.csproj", "{9EC698E0-57EE-46FF-BFE9-F894C1066A71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notes.ConsoleUI", "Notes.ConsoleUI\Notes.ConsoleUI.csproj", "{9EC698E0-57EE-46FF-BFE9-F894C1066A71}"
 	ProjectSection(ProjectDependencies) = postProject
 		{9DF192D6-3362-4B46-9B8D-E3E50E548F5A} = {9DF192D6-3362-4B46-9B8D-E3E50E548F5A}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notes.BusinessLogic", "Notes.BusinessLogic\Notes.BusinessLogic.csproj", "{9DF192D6-3362-4B46-9B8D-E3E50E548F5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notes.BusinessLogic", "Notes.BusinessLogic\Notes.BusinessLogic.csproj", "{9DF192D6-3362-4B46-9B8D-E3E50E548F5A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{F3F79618-B31F-4DAA-88AF-BFC0E16992CF} = {F3F79618-B31F-4DAA-88AF-BFC0E16992CF}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notes.DataAccess", "Notes.DataAccess\Notes.DataAccess.csproj", "{F3F79618-B31F-4DAA-88AF-BFC0E16992CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notes.DataAccess", "Notes.DataAccess\Notes.DataAccess.csproj", "{F3F79618-B31F-4DAA-88AF-BFC0E16992CF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessLogic", "BusinessLogic", "{DE6DE422-A7D3-450D-B238-976A4EB4B085}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccess", "DataAccess", "{C15D5850-DAC0-4C72-A76A-C225834D5A4F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{D9421D72-0F51-4208-8D0E-03DDF9F8ADC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notes.WEB", "Notes.WEB\Notes.WEB.csproj", "{96743B56-BD3B-4FC5-A06D-DF6654C5085F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9DF192D6-3362-4B46-9B8D-E3E50E548F5A} = {9DF192D6-3362-4B46-9B8D-E3E50E548F5A}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +44,10 @@ Global
 		{F3F79618-B31F-4DAA-88AF-BFC0E16992CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3F79618-B31F-4DAA-88AF-BFC0E16992CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3F79618-B31F-4DAA-88AF-BFC0E16992CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96743B56-BD3B-4FC5-A06D-DF6654C5085F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96743B56-BD3B-4FC5-A06D-DF6654C5085F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96743B56-BD3B-4FC5-A06D-DF6654C5085F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96743B56-BD3B-4FC5-A06D-DF6654C5085F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,6 +56,7 @@ Global
 		{9EC698E0-57EE-46FF-BFE9-F894C1066A71} = {D9421D72-0F51-4208-8D0E-03DDF9F8ADC7}
 		{9DF192D6-3362-4B46-9B8D-E3E50E548F5A} = {DE6DE422-A7D3-450D-B238-976A4EB4B085}
 		{F3F79618-B31F-4DAA-88AF-BFC0E16992CF} = {C15D5850-DAC0-4C72-A76A-C225834D5A4F}
+		{96743B56-BD3B-4FC5-A06D-DF6654C5085F} = {D9421D72-0F51-4208-8D0E-03DDF9F8ADC7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7A52EA7C-3C2B-4712-8267-0F06C47B71BC}
