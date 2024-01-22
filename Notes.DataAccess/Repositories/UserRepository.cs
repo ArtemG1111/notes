@@ -22,5 +22,9 @@ namespace Notes.DataAccess.Repositories
             return _context.Users.FirstOrDefault(u => u.UserName == user.UserName
             && u.Password == user.Password);
         }
+        public List<User> GetUsers()
+        {
+            return _context.Users.ToList();
+        }
     }
 }

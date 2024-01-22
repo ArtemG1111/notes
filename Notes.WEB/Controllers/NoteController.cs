@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Notes.BusinessLogic.Interfaces;
 using Notes.DataAccess.Data.Models;
+using Notes.WEB.ViewModels;
 
 namespace Notes.WEB.Controllers
 {
@@ -8,15 +10,17 @@ namespace Notes.WEB.Controllers
     [Route("api/[controller]")]
     public class NoteController
     {
+        private readonly IMapper _mapper;
         private readonly INoteService _noteService;
-        public NoteController(INoteService noteService)
+        public NoteController(INoteService noteService, IMapper noteMapper)
         {
             _noteService = noteService;
+            _mapper = noteMapper;
         }
         [HttpPost]
-        public void AddNote(Note note)
+        public void AddNote(NoteViewModel note)
         {
-            _noteService.AddNote(note);
+            _noteService.AddNote(_mapper.Map<Note>(note));         
         }
         [HttpGet]
         public List<Note> GetAllNote(int userId)
@@ -24,14 +28,14 @@ namespace Notes.WEB.Controllers
             return _noteService.GetAllNote(userId);
         }
         [HttpPut]
-        public void UpdateNote(Note note)
+        public void UpdateNote(NoteViewModel note)
         {
-            _noteService.UpdateNote(note);
+            _noteService.UpdateNote(_mapper.Map<Note>(note));
         }
-        [HttpDelete]
-        public void DeleteNote(Note note)
+        [HttpDelete("{id}")]
+        public void DeleteNote(int id)
         {
-            _noteService.DeleteNote(note);
+            _noteService.DeleteNote(id);
         }
         [HttpGet("{id}")]
         public Note GetNoteById(int id)

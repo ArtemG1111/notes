@@ -21,5 +21,9 @@ namespace Notes.BusinessLogic.Services
         {
             return _userRepository.LogIn(user);
         }
+        public List<User> GetUsers()
+        {
+            return _userRepository.GetUsers();
+        }
     }
 }

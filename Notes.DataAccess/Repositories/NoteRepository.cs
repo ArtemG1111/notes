@@ -27,7 +27,7 @@ namespace Notes.DataAccess.Repositories
             _context.SaveChanges();
         }
         public void DeleteNote(Note note)
-        {
+        {            
             _context.Remove(note);
             _context.SaveChanges();
         }

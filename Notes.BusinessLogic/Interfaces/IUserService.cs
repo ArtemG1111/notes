@@ -8,5 +8,6 @@ namespace Notes.BusinessLogic.Interfaces
     {
         void Registration(User user);
         User LogIn(User user);
+        List<User> GetUsers();
     }
 }

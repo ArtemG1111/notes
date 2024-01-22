@@ -6,6 +6,7 @@ using Notes.BusinessLogic.Servises;
 using Notes.DataAccess.Data;
 using Notes.DataAccess.Interfaces;
 using Notes.DataAccess.Repositories;
+using Notes.WEB.Common.Mappings;
 using Notes.WEB.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +23,7 @@ var connectiongString = builder.Configuration.GetConnectionString("DefaultConnec
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(typeof(NoteMappingProfile));
 
 var app = builder.Build();
 

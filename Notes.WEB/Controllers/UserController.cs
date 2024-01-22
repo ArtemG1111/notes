@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Notes.BusinessLogic.Interfaces;
 using Notes.DataAccess.Data.Models;
+using Notes.WEB.ViewModels;
 
 namespace Notes.WEB.Controllers
 {
@@ -8,20 +10,28 @@ namespace Notes.WEB.Controllers
     [Route("api/[controller]")]
     public class UserController
     {
+        private readonly IMapper _mapper;
         private readonly IUserService _userService;
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IMapper userMapper)
         {
             _userService = userService;
+            _mapper = userMapper;
         }
         [HttpPost]
-        public void Registration(User user)
+        public void Registration(UserViewModel user)
         {
-            _userService.Registration(user);
+            _userService.Registration(_mapper.Map<User>(user));
+        }
+        [HttpPost]
+        [Route("login")]
+        public User LogIn(UserViewModel user)
+        {
+            return _userService.LogIn(_mapper.Map<User>(user));
         }
         [HttpGet]
-        public User LogIn(User user)
+        public List<User> GetUsers()
         {
-            return _userService.LogIn(user);
+            return _userService.GetUsers();
         }
     }
 }
