@@ -12,15 +12,19 @@ namespace Notes.WEB.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
-        public UserController(IUserService userService, IMapper userMapper)
+        private readonly ILogger<UserController> _logger;
+
+        public UserController(IUserService userService, IMapper userMapper, ILogger<UserController> logger)
         {
             _userService = userService;
             _mapper = userMapper;
+            _logger = logger;
         }
         [HttpPost]
         public void Registration(UserViewModel user)
         {
             _userService.Registration(_mapper.Map<User>(user));
+            _logger.LogInformation($"User was successfully added");
         }
         [HttpPost]
         [Route("login")]
