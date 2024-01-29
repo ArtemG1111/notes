@@ -8,7 +8,7 @@ namespace Notes.WEB.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController
+    public class UserController : ControllerBase
     {
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
@@ -21,16 +21,19 @@ namespace Notes.WEB.Controllers
             _logger = logger;
         }
         [HttpPost]
-        public void Registration(UserViewModel user)
+        public IActionResult Registration(UserViewModel user)
         {
             _userService.Registration(_mapper.Map<User>(user));
             _logger.LogInformation($"User was successfully added");
+            return Ok($"User was successfully added");
         }
         [HttpPost]
         [Route("login")]
-        public User LogIn(UserViewModel user)
+        public IActionResult LogIn(UserViewModel user)
         {
-            return _userService.LogIn(_mapper.Map<User>(user));
+            _userService.LogIn(_mapper.Map<User>(user));
+            _logger.LogInformation($"User was LogIn");
+            return Ok($"User was LogIn");
         }
         [HttpGet]
         public List<User> GetUsers()

@@ -8,7 +8,7 @@ namespace Notes.WEB.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class NoteController
+    public class NoteController : ControllerBase
     {
         private readonly IMapper _mapper;
         private readonly INoteService _noteService;
@@ -20,10 +20,11 @@ namespace Notes.WEB.Controllers
             _logger = logger;
         }
         [HttpPost]
-        public void AddNote(NoteViewModel note)
+        public IActionResult AddNote(NoteViewModel note)
         {
             _noteService.AddNote(_mapper.Map<Note>(note));
             _logger.LogInformation($"Note successfully added");
+            return Ok($"Note successfully added");
         }
         [HttpGet]
         public List<Note> GetAllNote(int userId)
@@ -31,16 +32,18 @@ namespace Notes.WEB.Controllers
             return _noteService.GetAllNote(userId);
         }
         [HttpPut]
-        public void UpdateNote(NoteViewModel note)
+        public IActionResult UpdateNote(NoteViewModel note)
         {
             _noteService.UpdateNote(_mapper.Map<Note>(note));
             _logger.LogInformation($"Note was updated");
+            return Ok($"Note was updated");
         }
         [HttpDelete("{id}")]
-        public void DeleteNote(int id)
+        public IActionResult DeleteNote(int id)
         {
             _noteService.DeleteNote(id);
             _logger.LogInformation("Note was deleted");
+            return Ok("Note was deleted");
         }
         [HttpGet("{id}")]
         public Note GetNoteById(int id)
