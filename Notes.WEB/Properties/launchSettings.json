@@ -15,7 +15,8 @@
       "applicationUrl": "http://localhost:5020",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "launchUrl": "http://localhost:5020/swagger"
     },
     "IIS Express": {
       "commandName": "IISExpress",

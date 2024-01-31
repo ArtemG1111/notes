@@ -23,11 +23,25 @@ namespace Notes.DataAccess.Repositories
         }
         public void UpdateNote(Note note)
         {
-            _context.Attach(note);
+            Note? existingNote = _context.Notes.Find(note.Id);
+            if (existingNote == null)
+            {
+                throw new Exception ($"Error occurred while updating note, note with id {note.Id} not found");
+            }
+           
+            existingNote.Title = note.Title;
+            existingNote.Content = note.Content;
+            _context.Attach(existingNote);
             _context.SaveChanges();
+            
         }
-        public void DeleteNote(Note note)
-        {            
+        public void DeleteNote(int id)
+        {
+            Note? note = _context.Notes.Find(id);
+            if (note == null)
+            {
+                throw new Exception($"Error occurred while deleting note, note with id {id} not found");
+            }
             _context.Remove(note);
             _context.SaveChanges();
         }

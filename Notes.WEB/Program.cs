@@ -8,6 +8,7 @@ using Notes.DataAccess.Interfaces;
 using Notes.DataAccess.Repositories;
 using Notes.WEB.Common.Mappings;
 using Notes.WEB.Controllers;
+using Notes.WEB.Infrastructure.Middleware.ErrorHandling;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +36,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseToken();
 app.Run();
     
 
