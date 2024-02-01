@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
+using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using Notes.BusinessLogic.Interfaces;
 using Notes.DataAccess.Data.Models;
 using Notes.WEB.ViewModels;
+using System.Text.Json;
 
 namespace Notes.WEB.Controllers
 {
@@ -13,15 +16,25 @@ namespace Notes.WEB.Controllers
         private readonly IMapper _mapper;
         private readonly INoteService _noteService;
         private readonly ILogger<NoteController> _logger;
-        public NoteController(INoteService noteService, IMapper noteMapper, ILogger<NoteController> logger)
+        private IValidator<NoteViewModel> _validator;
+        public NoteController(INoteService noteService, IMapper noteMapper, ILogger<NoteController> logger
+           ,IValidator<NoteViewModel> validator)
         {
             _noteService = noteService;
             _mapper = noteMapper;
             _logger = logger;
+            _validator = validator;
         }
         [HttpPost]
-        public IActionResult AddNote(NoteViewModel note)
+        public async Task<IActionResult> AddNote(NoteViewModel note)
         {
+            ValidationResult result = await _validator.ValidateAsync(note);            
+            if (!result.IsValid)
+            {
+                var errors = result.Errors.Select(e => new { Property = e.PropertyName, ErrorMessage = e.ErrorMessage });
+                return BadRequest(new { Errors = errors });
+            }
+            
             _noteService.AddNote(_mapper.Map<Note>(note));
             _logger.LogInformation($"Note successfully added");
             return Ok($"Note successfully added");
@@ -32,8 +45,15 @@ namespace Notes.WEB.Controllers
             return _noteService.GetAllNote(userId);
         }
         [HttpPut]
-        public IActionResult UpdateNote(NoteViewModel note)
+        public async Task<IActionResult> UpdateNote(NoteViewModel note)
         {
+            ValidationResult result = await _validator.ValidateAsync(note);
+            if (!result.IsValid)
+            {
+                var errors = result.Errors.Select(e => new { Property = e.PropertyName, ErrorMessage = e.ErrorMessage });
+                return BadRequest(new { Errors = errors });
+            }
+            
             _noteService.UpdateNote(_mapper.Map<Note>(note));
             _logger.LogInformation($"Note was updated");
             return Ok($"Note was updated");

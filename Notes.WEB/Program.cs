@@ -1,4 +1,5 @@
 
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Notes.BusinessLogic.Interfaces;
 using Notes.BusinessLogic.Services;
@@ -7,6 +8,7 @@ using Notes.DataAccess.Data;
 using Notes.DataAccess.Interfaces;
 using Notes.DataAccess.Repositories;
 using Notes.WEB.Common.Mappings;
+using Notes.WEB.Common.Validators;
 using Notes.WEB.Controllers;
 using Notes.WEB.Infrastructure.Middleware.ErrorHandling;
 
@@ -25,6 +27,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(NoteMappingProfile));
+builder.Services.AddValidatorsFromAssemblyContaining<NoteViewModelValidator>();
 
 var app = builder.Build();
 
