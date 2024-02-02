@@ -27,7 +27,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(NoteMappingProfile));
-builder.Services.AddValidatorsFromAssemblyContaining<NoteViewModelValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<NoteViewModelValidator>()
+    .AddValidatorsFromAssemblyContaining<UserViewModelValidator>();
+   
+
 
 var app = builder.Build();
 
