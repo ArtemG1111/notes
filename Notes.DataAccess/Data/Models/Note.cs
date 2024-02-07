@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.AspNetCore.Identity;
+
 namespace Notes.DataAccess.Data.Models
 {
     public class Note
@@ -6,7 +8,7 @@ namespace Notes.DataAccess.Data.Models
         public int Id { get; set; }
         public string? Title { get; set; }
         public string? Content { get; set; }
-        public User User { get; set; }
-        public int UserId { get; set; }
+        public User User { get; set; } 
+        public string UserId { get; set; } 
     }
 }

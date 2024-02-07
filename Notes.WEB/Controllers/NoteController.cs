@@ -40,7 +40,7 @@ namespace Notes.WEB.Controllers
             return Ok($"Note successfully added");
         }
         [HttpGet]
-        public List<Note> GetAllNote(int userId)
+        public List<Note> GetAllNote(string userId)
         {
             return _noteService.GetAllNote(userId);
         }

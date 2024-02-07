@@ -1,13 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Notes.DataAccess.Data.Models;
 using System.Reflection;
 
 namespace Notes.DataAccess.Data
 {
-    public class NotesContext : DbContext
+    public class NotesContext : IdentityDbContext<User>
     {
         public DbSet<Note> Notes { get; set; }
-        public DbSet<User> Users { get; set; }
+
         public NotesContext(DbContextOptions<NotesContext> options)
             : base(options) 
         {

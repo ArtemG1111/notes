@@ -17,7 +17,7 @@ namespace Notes.DataAccess.Repositories
             _context.Add(note);
             _context.SaveChanges();   
         }
-        public List<Note> GetAllNote(int userId)
+        public List<Note> GetAllNote(string userId)
         {
             return _context.Notes.Where(u => u.UserId == userId).ToList();
         }

@@ -1,10 +1,12 @@
 
 using FluentValidation;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Notes.BusinessLogic.Interfaces;
 using Notes.BusinessLogic.Services;
 using Notes.BusinessLogic.Servises;
 using Notes.DataAccess.Data;
+using Notes.DataAccess.Data.Models;
 using Notes.DataAccess.Interfaces;
 using Notes.DataAccess.Repositories;
 using Notes.WEB.Common.Mappings;
@@ -29,13 +31,26 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(NoteMappingProfile));
 builder.Services.AddValidatorsFromAssemblyContaining<NoteViewModelValidator>()
     .AddValidatorsFromAssemblyContaining<UserViewModelValidator>();
-   
+builder.Services.AddIdentity<User, IdentityRole>(opts =>
+{
+    opts.Password.RequireNonAlphanumeric = false;
+    opts.Password.RequireLowercase = false;
+    opts.Password.RequireUppercase = false;
+    opts.Password.RequireDigit = false;
+})
+    .AddEntityFrameworkStores<NotesContext>();
+
+builder.Services.AddControllersWithViews();
 
 
 var app = builder.Build();
 
 app.UseDeveloperExceptionPage();
 app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapControllers();
 if (app.Environment.IsDevelopment())
 {

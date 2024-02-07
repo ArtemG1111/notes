@@ -23,7 +23,7 @@ namespace Notes.BusinessLogic.Servises
         {    
             _noteRepository.DeleteNote(id);
         }
-        public List<Note> GetAllNote(int userId)
+        public List<Note> GetAllNote(string userId)
         {
             return _noteRepository.GetAllNote(userId);
         }

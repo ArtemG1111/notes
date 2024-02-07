@@ -20,7 +20,7 @@ namespace Notes.DataAccess.Repositories
         public User? LogIn(User user)
         {
             return _context.Users.FirstOrDefault(u => u.UserName == user.UserName
-            && u.Password == user.Password);
+            && u.PasswordHash == user.PasswordHash);
         }
         public List<User> GetUsers()
         {
