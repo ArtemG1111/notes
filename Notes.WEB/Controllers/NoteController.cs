@@ -2,6 +2,7 @@
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Notes.BusinessLogic.Interfaces;
 using Notes.DataAccess.Data.Models;
 using Notes.WEB.ViewModels;
@@ -16,7 +17,8 @@ namespace Notes.WEB.Controllers
         private readonly IMapper _mapper;
         private readonly INoteService _noteService;
         private readonly ILogger<NoteController> _logger;
-        private IValidator<NoteViewModel> _validator;
+        private readonly IValidator<NoteViewModel> _validator;
+
         public NoteController(INoteService noteService, IMapper noteMapper, ILogger<NoteController> logger
            ,IValidator<NoteViewModel> validator)
         {

@@ -1,4 +1,6 @@
-﻿using Notes.BusinessLogic.Interfaces;
+﻿using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
+using Notes.BusinessLogic.Interfaces;
 using Notes.DataAccess.Data.Models;
 using Notes.DataAccess.Interfaces;
 
@@ -7,9 +9,13 @@ namespace Notes.BusinessLogic.Servises
     public class NoteService : INoteService
     {
         private readonly INoteRepository _noteRepository;
-        public NoteService(INoteRepository noteRepository)
+        private readonly IMemoryCache _memoryCache;
+        private readonly ILogger _logger;
+        public NoteService(INoteRepository noteRepository, IMemoryCache memoryCache, ILogger logger)
         {
             _noteRepository = noteRepository;
+            _memoryCache = memoryCache;
+            _logger = logger;
         }
         public void AddNote(Note note)
         {
@@ -25,7 +31,19 @@ namespace Notes.BusinessLogic.Servises
         }
         public List<Note> GetAllNote(string userId)
         {
-            return _noteRepository.GetAllNote(userId);
+            _memoryCache.TryGetValue(userId, out List<Note>? notes);
+            if (notes == null)
+            {
+                _noteRepository.GetAllNote(userId);
+                if (notes != null)
+                {
+                    _logger.LogInformation("Data from database");
+                    _memoryCache.Set(userId, notes, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(5)));
+                }
+            }
+            _logger.LogInformation("Data form cache");
+
+            return notes;
         }
         public Note GetNoteById(int id)
         {

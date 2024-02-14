@@ -41,6 +41,7 @@ builder.Services.AddIdentity<User, IdentityRole>(opts =>
     .AddEntityFrameworkStores<NotesContext>();
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddMemoryCache();
 
 
 var app = builder.Build();
