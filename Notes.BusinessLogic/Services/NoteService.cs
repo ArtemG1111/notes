@@ -10,8 +10,8 @@ namespace Notes.BusinessLogic.Servises
     {
         private readonly INoteRepository _noteRepository;
         private readonly IMemoryCache _memoryCache;
-        private readonly ILogger _logger;
-        public NoteService(INoteRepository noteRepository, IMemoryCache memoryCache, ILogger logger)
+        private readonly ILogger<NoteService> _logger;
+        public NoteService(INoteRepository noteRepository, IMemoryCache memoryCache, ILogger<NoteService> logger)
         {
             _noteRepository = noteRepository;
             _memoryCache = memoryCache;
