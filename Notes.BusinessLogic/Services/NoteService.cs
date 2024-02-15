@@ -32,18 +32,14 @@ namespace Notes.BusinessLogic.Servises
         public List<Note> GetAllNote(string userId)
         {
             _memoryCache.TryGetValue(userId, out List<Note>? notes);
-            if (notes == null)
+            if (notes != null)
             {
-                _noteRepository.GetAllNote(userId);
-                if (notes != null)
-                {
-                    _logger.LogInformation("Data from database");
-                    _memoryCache.Set(userId, notes, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(5)));
-                }
-            }
-            _logger.LogInformation("Data form cache");
-
-            return notes;
+                _logger.LogInformation("Data form cache");
+                return notes;
+            }  
+            _logger.LogInformation("Data from database");
+            _memoryCache.Set(userId, notes, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(5)));
+            return _noteRepository.GetAllNote(userId);
         }
         public Note GetNoteById(int id)
         {
