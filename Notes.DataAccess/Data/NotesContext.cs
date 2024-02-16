@@ -8,8 +8,8 @@ namespace Notes.DataAccess.Data
 {
     public class NotesContext : IdentityDbContext<User>
     {
-        public DbSet<Note> Notes { get; set; }
-
+        public virtual DbSet<Note> Notes { get; set; }
+        public NotesContext() { }
         public NotesContext(DbContextOptions<NotesContext> options)
             : base(options) 
         {
